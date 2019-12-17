@@ -1,0 +1,12 @@
+{
+  "name": "starter_kit",
+  "version": "0.0.1",
+  "description": "A barebones starter kit",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha **/*.test.js *.test.js"
+  },
+  "keywords": [],
+  "author": "Yi Chao",
+  "license": "ISC"
+}
