@@ -9,11 +9,12 @@ module.exports = {
         }
       ]
     },
+    devtool: 'source-map',
     resolve: {
       extensions: ['*', '.js', '.jsx']
     },
     output: {
-      path: __dirname + '/dist',
+      path: __dirname + '/public',
       publicPath: '/public',
       filename: 'bundle.js'
     },
