@@ -17,9 +17,9 @@ app
   .use(express.static(resolve(__dirname, '..', 'public')))
 
   // Serve api
-  .use('/api', require('./api.js'))
+  .use('/api', require('./api'))
   // Send index.html for anything else.
-  .use((_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
+  .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
 
 if (module === require.main) {
   // Start listening only if we're the main module.
