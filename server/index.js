@@ -2,7 +2,13 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
+// symlink from node_modules/APP to the root of the app.
+// We can require paths relative to the app root by
+// saying require('APP/whatever').
+//
+// This next line requires our root index.js:
 const package = require('APP')
+
 
 if (process.env.NODE_ENV !== 'production') {
   // Logging middleware (dev & testing only)
