@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
-const package = require('../package.json')
+const package = require('APP')
 
 if (process.env.NODE_ENV !== 'production') {
   // Logging middleware (dev & testing only)
