@@ -2,7 +2,7 @@
 const chalk = require('chalk')
 const pkg = require('./package.json')
 
-const nameError =
+const nameError = 
 `*******************************************************************
  You need to give your app a name.
  The package name
@@ -10,9 +10,18 @@ const nameError =
 isn't valid. Please change it in ${__dirname}/package.json
 ********************************************************************`
 
-const legalName = /^[\w\-]+$/
-if (!legalName.test(pkg.name)) {
+const reasonableName = /^[[a-z0-9]\-]+$/
+if (!reasonableName.test(pkg.name)) {
   console.error(chalk.red(nameError))
 }
 
-module.exports = pkg 
+pkg.isTesting = !!global.it
+
+module.exports = {
+    get name() { return pkg.name },
+    get isTesting() { return !!global.it },
+    get isProduction() {
+        return process.env.NODE_ENV === 'production'
+    },
+    package: pkg,
+}

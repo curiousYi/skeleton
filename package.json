@@ -4,7 +4,7 @@
   "description": "A barebones starter kit",
   "main": "index.js",
   "scripts": {
-    "test": "mocha **/*.test.js *.test.js",
+    "test": "mocha app/**/*.test.js db/**/*.test.js server/**/*.test.js",
     "build": "webpack",
     "build-watch": "webpack -w",
     "start": "nodemon server"
@@ -15,8 +15,13 @@
   "dependencies": {
     "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "cookie-session": "^1.3.3",
     "express": "^4.17.1",
+    "mocha": "^6.2.2",
     "nodemon": "^2.0.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",

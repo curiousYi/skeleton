@@ -2,12 +2,9 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
-// symlink from node_modules/APP to the root of the app.
-// We can require paths relative to the app root by
-// saying require('APP/whatever').
-//
-// This next line requires our root index.js:
 const package = require('APP')
+const passport = require('passport')
+
 
 
 if (process.env.NODE_ENV !== 'production') {
@@ -16,8 +13,19 @@ if (process.env.NODE_ENV !== 'production') {
 }  
 
 app
+  // We'll store the whole session in a cookie
+  .use(require('cookie-session') ({
+    name: 'session',
+    keys: process.env.SESSION_SECRET || 'an insecure secret key',
+  }))
+
+  // Body parsing middleware
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
+
+   // Authentication middleware
+   .use(passport.initialize())
+   .use(passport.session())
 
   // Serve static files from ../public
   .use(express.static(resolve(__dirname, '..', 'public')))
