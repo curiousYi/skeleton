@@ -5,6 +5,14 @@ const User = require('APP/db/models/user')
 
 const auth = require('express').Router()
 
+passport.serializeUser((user, done) => done(null, user.id))
+
+passport.deserializeUser(
+  (id, done) =>
+    User.findById(id)
+      .then(user => done(null, user))
+      .catch(done))
+
 passport.use(new LocalStrategy(
   (email, password, done) => {
     User.findOne({where: {email}})
