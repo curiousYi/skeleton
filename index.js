@@ -10,7 +10,7 @@ const nameError =
 isn't valid. Please change it in ${__dirname}/package.json
 ********************************************************************`
 
-const reasonableName = /^[[a-z0-9]\-]+$/
+const reasonableName = /^[[a-z0-9]\-]*$/
 if (!reasonableName.test(pkg.name)) {
   console.error(chalk.red(nameError))
 }
