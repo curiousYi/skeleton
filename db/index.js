@@ -28,8 +28,8 @@ module.exports = db;
 require('./models') 
 
 // sync the db, creating it if necessary
-function sync(opts) {
-    return db.sync(opts)
+function sync(force=app.isTesting) {
+    return db.sync({force})
       .then(ok => console.log(`Synced models to db ${url}`))
       .catch(fail => {
         console.error(fail)
@@ -41,7 +41,7 @@ function sync(opts) {
         console.log(`Creating database ${name}...`)
         return new Promise((resolve, reject) =>
             require('child_process').exec(`createdb "${name}"`, resolve)
-        ).then(() => sync({force: true}))
+        ).then(() => sync(true))
       })
   }
   db.didSync = sync() 

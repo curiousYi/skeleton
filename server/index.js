@@ -7,7 +7,7 @@ const passport = require('passport')
 
 
 
-if (process.env.NODE_ENV !== 'production') {
+if (!package.isProduction){
   // Logging middleware (dev & testing only)
   app.use(require('volleyball'))
 }  
@@ -16,7 +16,7 @@ app
   // We'll store the whole session in a cookie
   .use(require('cookie-session') ({
     name: 'session',
-    keys: process.env.SESSION_SECRET || 'an insecure secret key',
+    keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
   }))
 
   // Body parsing middleware
