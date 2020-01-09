@@ -27,15 +27,20 @@ passport.deserializeUser(
   )
 passport.use(new LocalStrategy(
   (email, password, done) => {
+    debug('will authenticate user(email: "%s")', email)
     User.findOne({where: {email}})
       .then(user => {
         if (!user) {
+          debug('authenticate user(email: "%s") did fail: no such user', email)
           return done(null, false, { message: 'Login incorrect' })
         }
         return user.authenticate(password)
           .then(ok => {
-            if (!ok)
+            if (!ok) {
+              debug('authenticate user(email: "%s") did fail: bad password')   
               return done(null, false, { message: 'Login incorrect' })
+            }
+            debug('authenticate user(email: "%s") did ok: user.id=%d', user.id)
             done(null, user)              
           })
       })
