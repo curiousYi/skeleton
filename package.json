@@ -6,9 +6,9 @@
   "scripts": {
     "test": "check-node-version --node '>= 6.7.0' && bin/setup && mocha --compilers js:babel-register app/**/*.test.js app/**/*.test.jsx db/**/*.test.js server/**/*.test.js",
     "test-watch": "check-node-version --node '>= 6.7.0' && bin/setup && mocha --compilers js:babel-register --watch app/**/*.test.js app/**/*.test.jsx db/**/*.test.js server/**/*.test.js",
-    "build": "webpack",
-    "build-watch": "webpack -w",
-    "start": "nodemon server",
+    "build": "check-node-version --node '>= 6.7.0' && bin/setup && webpack",
+    "build-watch": "check-node-version --node '>= 6.7.0' && bin/setup && webpack -w",
+    "start": "check-node-version --node '>= 6.7.0' && bin/setup && nodemon server",
     "seed": "node db/seed.js"
   },
   "keywords": [],
@@ -25,6 +25,9 @@
     "mocha": "^6.2.2",
     "nodemon": "^2.0.2",
     "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-github2": "^0.1.11",
+    "passport-google-oauth": "^2.0.0",
     "passport-local": "^1.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
