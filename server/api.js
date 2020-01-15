@@ -1,11 +1,12 @@
 const epilogue = require('epilogue')
-const api = require('express').Router()
+const api = module.exports = require('express').Router()
 const db = require('APP/db')
 
 api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
   .get('/hello', (req, res) => res.send({hello: 'world'}))
   .use('/auth', require('./auth'))
+  .use('/users', require('./users'))
 
   // Epilogue can make routes for us
   epilogue.initialize({app: api, sequelize: db})
@@ -50,5 +51,3 @@ api
 
   // No routes matched? 404.
   api.use((req, res) => res.status(404).end())
-
-module.exports = api 
