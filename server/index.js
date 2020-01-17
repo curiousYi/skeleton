@@ -7,7 +7,7 @@ const passport = require('passport')
 
 
 
-if (!package.isProduction){
+if (!package.isProduction && !package.isTesting){
   // Logging middleware (dev & testing only)
   app.use(require('volleyball'))
 }  
