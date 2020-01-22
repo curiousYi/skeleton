@@ -1,3 +1,4 @@
+import axios from 'axios';
 
 const reducer = (state=null, action) => {
     switch(action.type) {
@@ -15,22 +16,19 @@ const reducer = (state=null, action) => {
   import axios from 'axios'
   
   export const login = (username, password) =>
-    dispatch => {
-      const body = {username, password}
-      console.log('req body=', body)
-      return axios.post('/api/auth/local/login', body)
-        .then(() => dispatch(whoami()))
-    }
+    dispatch => 
+      axios.post('api/auth/local/login',
+        {username, password})
+      .then(() => dispatch(whoami()))
+      .catch(() => dispatch(whoami()))
   
   export const whoami = () =>
     dispatch =>
       axios.get('/api/auth/whoami')
         .then(response => {
           const user = response.data
-          if (!Object.keys(user).length) {
-            return dispatch(authenticated(null))
-          }
           dispatch(authenticated(user))
         })
+        .catch(failed => dispatch(authenticated(null)))
   
   export default reducer
