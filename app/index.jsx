@@ -9,12 +9,14 @@ import Root from './components/Root'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 
-const Main = connect(
+const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
 )(
-  ({ user }) =>
+  ({ user, children }) =>
     <div>
-      {user ? <WhoAmI/> : <Login/>}
+      <nav>
+        {user ? <WhoAmI/> : <Login/>}
+      </nav>
       <Root />
     </div>
 )
@@ -22,8 +24,10 @@ const Main = connect(
 render (
   <Provider store={store}>
      <Router history={browserHistory}>
-      <Route path="/" component={Main} />
-      <Route path="/login" component={Login} />      
+      <Route path="/" component={ExampleApp}>
+        <IndexRedirect to="/jokes" />
+        <Route path="/jokes" component={Jokes} />
+      </Route>
     </Router>
   </Provider>,
   document.getElementById('app')
