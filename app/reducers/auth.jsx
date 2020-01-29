@@ -1,34 +1,40 @@
 import axios from 'axios';
 
 const reducer = (state=null, action) => {
-    switch(action.type) {
-    case AUTHENTICATED:
-      return action.user  
-    }
-    return state
+  switch(action.type) {
+  case AUTHENTICATED:
+    return action.user  
   }
-  
-  const AUTHENTICATED = 'AUTHENTICATED'
-  export const authenticated = user => ({
-    type: AUTHENTICATED, user
-  })
-  
-  import axios from 'axios'
-  
-  export const login = (username, password) =>
-    dispatch => 
-      axios.post('api/auth/local/login',
-        {username, password})
+  return state
+}
+
+const AUTHENTICATED = 'AUTHENTICATED'
+export const authenticated = user => ({
+  type: AUTHENTICATED, user
+})
+
+import axios from 'axios'
+
+export const login = (username, password) =>
+  dispatch => 
+    axios.post('api/auth/local/login',
+      {username, password})
+    .then(() => dispatch(whoami()))
+    .catch(() => dispatch(whoami()))
+
+export const logout = () =>
+  dispatch =>
+    axios.post('/api/auth/logout')
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()))
-  
-  export const whoami = () =>
-    dispatch =>
-      axios.get('/api/auth/whoami')
-        .then(response => {
-          const user = response.data
-          dispatch(authenticated(user))
-        })
-        .catch(failed => dispatch(authenticated(null)))
-  
-  export default reducer
+
+export const whoami = () =>
+  dispatch =>
+    axios.get('/api/auth/whoami')
+      .then(response => {
+        const user = response.data
+        dispatch(authenticated(user))
+      })
+      .catch(failed => dispatch(authenticated(null)))
+
+export default reducer
